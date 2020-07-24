@@ -1,26 +1,26 @@
 
 // ======== GLOBALS ======== //
-var phoneBrowsing = false;
+let phoneBrowsing = false;
 
 // Initialize opacity level for hidden annotation slides (this will be overriden to 0 if the slides are fixed at the top on mobile)
-var hiddenOpacity = 0.2;
+let hiddenOpacity = 0.2;
 
 // Declare indices to be used by scroll controller
-var activeIndex;
-var lastIndex;
+let activeIndex;
+let lastIndex;
 
 // Initial scroll direction is set to down since the user can only move in one direction
 // (this will override almost immediately anyway)
-var scrollDirection = 'down';
+let scrollDirection = 'down';
 
 // Declare scrollerDiv, which will designate which set of divs are used to track scroll steps ('.step' on Desktop, '.mobile-spacer' on Mobile)
 // And scrollerDivObjects, an array of all divs of this type, used for setting dynamic heights for tile wrappers
-var scrollerDiv;
-var scrollerDivObjects;
+let scrollerDiv;
+let scrollerDivObjects;
 // Declare scroll object, which dispatch scroll trigger events (using code in scroller.js)
-var scroll;
+let scroll;
 // Initialize an array of activate functions which will activate on scroll for corresponding annotation slides
-var activateFunctions = [];
+let activateFunctions = [];
 
 // Min width that browser window must be before switching to phoneBrowsing mode (even on Desktop, it will display everything as if on Mobile)
 const phoneBrowsingCutoff = 1100;
@@ -134,12 +134,9 @@ function setWindowFunctions() {
         // Hide the scroll arrow if the user passes a certain scroll height (past the top of the sunburst on Desktop,
         // a little before the end text on mobile)
         .scroll(function () {
-            if (phoneBrowsing === true) {
-                var arrowFadeHeight = $('#end-text-block').offset().top - 110;
-            }
-            else {
-                var arrowFadeHeight = $('#sunburst-wrapper').offset().top;      // Keep this but update Element ID
-            }
+            let arrowFadeHeight = phoneBrowsing === true ?
+                $('#end-text-block').offset().top - 110 :
+                $('#sunburst-wrapper').offset().top;        // Keep this but update Element ID
 
             if ($(window).scrollTop() > arrowFadeHeight) {
                 $(".downArrow")
@@ -307,7 +304,7 @@ function setTileWrapperHeights() {
 function main() {
 
     // Begin loading datafiles
-    var promises = [
+    const promises = [
         // d3.json("")
     ];
 
